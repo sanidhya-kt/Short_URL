@@ -1,4 +1,5 @@
 const ShortUniqueId = require("short-unique-id");
+const path = require('path')
 const URL = require("../models/urlModel");
 
 //post request:
@@ -15,7 +16,9 @@ async function generateShortUrl(req, res) {
     redirectUrl: body.url,
     visitHistory: [],
   });
-  res.status(201).json({ status: "success", id: shortUrl });
+  return res.render("home", {
+    id: shortUrl,
+  });
 }
 // get request: redirect from short url to original url-----
 
@@ -43,7 +46,7 @@ async function getAnalytics(req, res) {
   const shortid = req.params.shortUrl;
   const result = await URL.findOne({ shortid });
   res.json({
-    TotalClick: result.visitHistory.length ,
+    TotalClick: result.visitHistory.length,
     analytics: result.visitHistory,
   });
 }

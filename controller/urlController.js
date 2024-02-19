@@ -15,9 +15,11 @@ async function generateShortUrl(req, res) {
     shortId: shortUrl,
     redirectUrl: body.url,
     visitHistory: [],
+    createdBy: req.user._id  // this user come from middl. auth.js (req.user = user)
   });
   return res.render("home", {
     id: shortUrl,
+    
   });
 }
 // get request: redirect from short url to original url-----
